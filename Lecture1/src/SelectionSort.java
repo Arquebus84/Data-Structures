@@ -1,4 +1,5 @@
 
+
 import java.util.Arrays;
 /*
  * CSCI-3230
@@ -18,6 +19,7 @@ public class SelectionSort {
 		for (int i = 0; i < n; i++) {
 			
 			int size = (int)(Math.pow(10, (i + 1))); //Size for each test array (CHANGE HERE to use (i + 2) or (i + 3) will change the size)
+													//Will end at (4 + 1) 10^5
 			//int size = (int) (Math.pow(10, (i + 3))); // Will start at 10^3 (1000 is size of first array) and end at
 														// 10^7
 
