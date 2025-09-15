@@ -71,11 +71,18 @@ public class RecursionNote {
 			return 1;																		// 1 Operation
 		}else if(n % 2 == 1){
 			//Recursive case 1
-			return x * fasterRecPower(x, (n - 1) / 2) * fasterRecPower(x, (n - 1) / 2);		// will be x^n
+			/**return x * fasterRecPower(x, (n - 1) / 2) * fasterRecPower(x, (n - 1) / 2);		// will have 2 recursive calls (increases the Time complexity & memory call stack)*/
+			return x * Math.pow(fasterRecPower(x, (n - 1) / 2), 2);								//Will only have one recursive call be (n-1)/2 operations
 		}else {
 			//Recursive case 2
-			return fasterRecPower(x, n/2) * fasterRecPower(x, n/2);							// Operation will also be x^n
+			//return fasterRecPower(x, n/2) * fasterRecPower(x, n/2);							// Operation will also be n/2 operations will be n = 2log(x) 
+			return Math.pow(fasterRecPower(x, n/2), 2);											//Will be 1 recursive calls
 		}
+		//NOTE: in both recursive cases, it will be branching (split into two, therefore, it will be log) {log ==branching}
+		/**
+		 * When there is branching or division, then there is log (n/2)
+		 * 		It is log because we start with one recursive call (will be 2 branches), then another
+		 */
 		
 		//n = log(x)
 		//Running time will be O(log(n))
