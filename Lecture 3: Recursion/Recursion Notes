@@ -1,0 +1,26 @@
+
+public class RecursionNote {
+
+	public static void main(String[] args) {
+		
+		int num = 3;
+		System.out.println(num + "! = " + recFactorial(num));
+
+	}
+	
+	//Factorial n! = 1 * 2 * 3 * ... (n - 1) * n
+	public static int recFactorial(int n) {		//Entire function is called n + 1 times
+		if(n == 0) {
+			//Base case
+			return 1;						// 1 operation
+		}else {
+			//Recursive case
+			return n * recFactorial(n - 1);	// n operations
+		}
+		
+		//Order of n + 1, n + 1 is O(n)
+		//Running time is O(n)
+		
+	}
+
+}
