@@ -57,6 +57,8 @@ public class RecursionNote {
 		//Order of n + 1
 		//Running time?		will be O(n)
 		//What can we do better? could be log(n) or sqrt(n)			(Recall that it is log_2(n), sub 2**)
+
+		/**NOTE: We want to have either a sqrt(n) or log_2(n), these are our best case scenarious because they are not as bad as o(n) in terms of time complexity*/
 	}
 	
 	//Another recursive func (where base stays same, but split into two different equations)
