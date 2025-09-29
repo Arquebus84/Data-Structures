@@ -13,7 +13,7 @@ public class LinearDataStructNotes {
 	 * 
 	 */
 	
-	/*		Arrays
+	/*		Arrays			NOTE: Use arrays when static size is suffice**
 	 * 			*Fixed-size sequential collection of elements of same type
 	 * 		
 	 * 0	1	2	3	4	5	6	7	8	9		(Indices)	array length = 10
@@ -45,6 +45,8 @@ public class LinearDataStructNotes {
 	 * 		* false for boolean[] 
 	 * 		* null for array of objects (String, Circle, etc.)
 	 * 
+	 * Best Time Complexity in Array
+	 * 		* O(1) (or omega(1)) when inserting an element at the last point in the array
 	 * 
 	 * Limitations of Arrays:
 	 * 		-Static data structure
@@ -65,7 +67,7 @@ public class LinearDataStructNotes {
 	 * 		[a]	[b]	[c]	[d]	[f]	[g]	[h]	[null]	[] []
 	 */
 	
-	/*	ArrayLists		(Object-Oriented programming)
+	/*	ArrayLists		(Object-Oriented programming)			NOTE: Use ArrayLists when size needs to be dynamic**
 	 * 		*Dynamic sized arrays in Java that implements List interface
 	 * 			-Not static sized (static size is arrays)
 	 * 	ArrayList {
@@ -220,7 +222,7 @@ public class LinearDataStructNotes {
 	 * 					 head						tail
 	 * 					  |							  |
 	 * 					[e_1][*]---->[e_2][]----->[e_3][*]----->[X]
-	 * 			public void addFirst (E e) {
+	 * 			public void addFirst(E e) {
 	 * 				head = new Node<>(e , head );			//**Assign head to head, because it will be the next node
 	 * 				if(size == 0)
 	 * 					tail = head;						//**When there is no node in the next node, the next node will be head***
@@ -232,7 +234,7 @@ public class LinearDataStructNotes {
 	 * 								head		tail
 	 * 					  			  |			  | 
 	 * 					[e_1][]		[e_2][]----->[e_3][*]----->[X]
-	 * 			public void removeFirst () {
+	 * 			public void removeFirst() {
 	 * 				if(isEmpty()) return null;
 	 * 				E answer = head.getElement();
 	 * 				head = head.getNext();
@@ -241,6 +243,49 @@ public class LinearDataStructNotes {
 	 * 					tail = null;
 	 * 				return answer;
 	 * 			} 
+	 * 
+	 * 			Singly Linked Lists: addLast()
+	 * 					head					 tail---->[e_4][*]
+	 * 					  |							|	  /		\
+	 * 					[e_1][*]---->[e_2][]----->[e_3][*]----->[X]			//NOTE: e_3 goes to e_4
+	 * 																		//	e_4 goes to trailer ([X])
+	 * 			public void addLast(E e) {
+	 * 				Node<E> newest = new Node<>(e, null)
+	 * 				if(isEmpty())	// previously empty list
+	 * 					head = newest;
+	 * 				else			// new node after existing tail
+	 * 					tail.setNext(newest);
+	 * 				tail = newest;		// new node becomes tail
+	 * 				size++ 
+	 * 			} 
+	 * 
+	 * 			Singly Linked Lists: removeLast()
+	 * 					head					 tail		[e_4][*]
+	 * 					  |							|	  		
+	 * 					[e_1][*]---->[e_2][]----->[e_3][*]----->[X]
+	 * 																		
+	 * 			public void removeLast(E e) {} 	//**There is no constant time way to update tail to point in previous node
+	 */
+	
+	/**	Linked Lists: Doubly Linked Lists (ADT)
+	 * 		private Node<E> head = null;
+	 * 		private Node<E> tail = null;
+	 * 		private int size = 0;
+	 * 		
+	 * 		public int size()
+	 * 		public boolean isEmpty()
+	 * 		public E first()
+	 * 		public E last()
+	 *  	public void addFirst(E e)
+	 * 		public void addLast(E e)
+	 *  	public E removeFirst()
+	 * 		public E removeLast()
+	 *  	public void addBetween(E e, Node<E> predecessor, Node<E> successor)
+	 * 		public E removed(Node<E> node)
+	 *
+	 * 	header															trailer
+	 * 		|															  |
+	 * 		[X]<---->[*][e_1][*]<---->[*][e_2][*]<---->[*][e_3][*]<----->[X]
 	 * 
 	 */
 	
