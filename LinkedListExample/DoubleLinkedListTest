@@ -1,0 +1,94 @@
+public class DoubleLinkedListTest {
+    public static void main(String[] args){
+        DoublyLinkedList<Integer> doubleL = new DoublyLinkedList<>();
+        doubleL.addLast(22); doubleL.addLast(25); doubleL.addLast(28);
+        //System.out.println(doubleL.first());
+        doubleL.printElements();
+    }
+    
+    //Node for Doubly (NodeD)
+    private static class NodeD<E>{
+        E element;
+        NodeD<E> next;
+        NodeD<E> prev;       //** For Doubly Only
+
+        public NodeD(E element, NodeD<E> prevAddress, NodeD<E> nextAddress){
+            this.element = element;
+            this.prev = prevAddress;
+            this.next = nextAddress;
+        }
+
+        public E getElement(){ return element;  }
+        public NodeD<E> getNextNode(){ return next; }
+        public NodeD<E> getPrevNode(){ return prev; }        //** For Doubly Only
+        public void setNextNode(NodeD<E> nextAddress){ this.next = nextAddress; }
+        public void setPrevNode(NodeD<E> prevAddress){ this.prev = prevAddress; }    //** For Doubly Only
+    }
+
+    private static class DoublyLinkedList<E>{
+        private NodeD<E> header = new NodeD(null, null, null);
+        private NodeD<E> trailer = new NodeD(null, header, null);
+        /** Number of nodes in the list */
+        private int size = 0;
+
+        public int getSize(){ return size; }
+        public boolean isEmpty(){
+            if(getSize() < 1)
+                return true;
+            else
+                return false;
+        }
+        //NOTE: Since head is null, return the element after it
+        public E first(){ 
+            if(isEmpty())
+                return null;
+            else
+                return header.getNextNode().getElement(); 
+        }
+        //NOTE: Since tail is null, return the element before it
+        public E last(){ 
+            if(isEmpty())
+                return null;
+            else
+                return trailer.getPrevNode().getElement();  
+        }
+        //Adding the first element will not have a null value (head will have null)
+        public void addFirst (E e){
+            addBetween(e, header, header.getNextNode());
+        }
+        //Adding the last element will not have a null value (tail will have null): **Same as Singly, but with backwards direction
+        public void addLast(E e){
+            addBetween(e, trailer.getPrevNode(), trailer);   //Between the tail and node before the tail
+        }
+        public void addBetween(E e, NodeD<E> predecessor, NodeD<E> successor){
+            NodeD<E> newest = new NodeD(e, predecessor, successor);
+            successor.setPrevNode(newest);
+            predecessor.setNextNode(newest);
+            size++;
+        }
+        public E removeFirst(){
+            return remove(header.getNextNode());
+        }
+        public E removeLast(){
+            return remove(trailer.getPrevNode());
+        }
+        public E remove(NodeD<E> node){
+            NodeD<E> predecessor = node.getPrevNode();
+            NodeD<E> successor = node.getNextNode();
+            successor.setPrevNode(predecessor);
+            predecessor.setPrevNode(successor);
+            size--;
+            return node.getElement();
+        }
+        public void printElements(){
+            if(isEmpty()){ System.out.println("Null Pointer"); }
+            NodeD<E> e = header.getNextNode();
+            for(int i = 0; i < getSize(); i++){
+                if(e == null) break;
+                System.out.print(e.getElement() + " ");
+                e = e.getNextNode();
+            }
+            System.out.println();
+        }
+    }
+}
