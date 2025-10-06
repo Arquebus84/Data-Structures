@@ -1,0 +1,98 @@
+public class SingleLinkedListTest{
+    public static void main(String[] args){
+        // Node<Integer> addr = new Node<>();
+        // Node<Integer> n = new Node(24, addr.hashCode());
+
+
+        SinglyLinkedList<Integer> singleL = new SinglyLinkedList<>();
+        singleL.addLast(22); singleL.addLast(25); singleL.addLast(28);
+        singleL.printElements();
+    }
+    //Node for Singly (NodeS)
+    private static class NodeS<E>{
+        E element;
+        NodeS<E> next;
+
+        public NodeS(E element, NodeS<E> nextAddress){
+            this.element = element;
+            this.next = nextAddress;
+        }
+
+        public E getElement(){ return element;  }
+        public NodeS<E> getNextNode(){ return next; }
+        public void setNextNode(NodeS<E> nextAddress){ this.next = nextAddress; }
+    }
+
+    private static class SinglyLinkedList<E>{
+        private NodeS<E> head = null;
+        private NodeS<E> tail = null;
+        /** Number of nodes in the list */
+        private int size = 0;
+
+        public int getSize(){ return size; }
+        public boolean isEmpty(){
+            if(getSize() < 1)
+                return true;
+            else
+                return false;
+        }
+        public E first(){ 
+            if(isEmpty())
+                return null;
+            else
+                return head.getElement(); 
+        }
+        public E last(){ 
+            if(isEmpty())
+                return null;
+            else
+                return tail.getElement();  
+        }
+        public void addFirst (E e){
+            head = new NodeS(e, head);
+            if(isEmpty())
+                tail = head;
+            size++;
+        }
+        public void addLast(E e){
+            NodeS<E> newest = new NodeS(e, null);
+            if(isEmpty())
+                head = newest;
+            else
+                tail.setNextNode(newest);
+            tail = newest;
+            size++;
+        }
+        public E removeFirst(){
+            NodeS<E> headValue = head;
+            if(isEmpty())
+                return null;
+            headValue = head.getNextNode();
+            size--;
+            if(isEmpty())
+                tail = null;
+            return headValue.getElement();
+        }
+
+        public void printElements(){
+            if(isEmpty()){
+                System.out.println("Null Pointer");
+            }else{
+                NodeS<E> e = head;
+                // while(e != null){
+                //     System.out.println(e.getElement() + " ");
+                //     e = e.getNextNode();
+                // }
+                for(int i = 0; i < getSize(); i++){
+                    if(e == null)
+                        break;
+                    else{
+                        System.out.print(e.getElement() + " ");
+                        e = e.getNextNode();
+                    }
+                }
+                System.out.println();
+            }
+        }
+    }
+}
