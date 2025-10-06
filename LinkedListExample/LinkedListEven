@@ -1,0 +1,217 @@
+package Test3;
+
+// ==============****FILL IN YOUR INFO HERE****======================
+// Name: Matteo Ventura
+// Eagle ID: 901405780
+// Type: EVEN
+// ==============****FILL IN YOUR INFO HERE****======================
+// ===============================================
+// CSCI 3230A Data Structures
+// Fall 2025
+// Instructor: M Arif Rahman, Ph.D.
+// CQ-3; Closed-Resources, Individual Test.
+
+// ====================== Requirements ========================
+// Implement "printing" and "delete operation by key/element” for a Singly Link List 
+// which was illustrated in the lecture slides "Lecture4-LinearDS.pdf".
+	
+/*
+I.  Algorithm DeleteByKey/Element ( LinkeListEven list , Key value )
+	1.	Search the key for its first occurrence in the list
+	2.	Now, any of the 3 conditions can be there: 
+	•	Case 1: The key is found at the head 
+			1.	In this case, change the head of the node to the next node of the current head.  
+			2.	Free the memory of the replaced head node.
+	•	Case 2: The key is found in the middle or last, except at the head 
+			1.	In this case, find the previous node of the node to be deleted. 
+			2.	Change the next the previous node to the next node of the current node.
+			3.	Free the memory of the replaced node.
+	•	Case 3: The key is not found in the list 
+			1.	In this case, no operation needs to be done. 
+
+
+
+*/
+
+// Please use appropriate data types and access modifiers
+// to demonstrate the correctness of your code.
+//
+// Inputs are already provided in the driver Main() function. 
+// Your output will look as follows if your implementation is correct:
+// ------------------------------------
+//Current LinkedList: 1 2 3 4 5 6 7 8 
+//
+//1 found and deleted
+//Current LinkedList: 2 3 4 5 6 7 8 
+//
+//4 found and deleted
+//Current LinkedList: 2 3 5 6 7 8 
+//
+//10 is not within the list!!
+//Current LinkedList: 2 3 5 6 7 8 
+
+
+
+// ======================= Note ======================== 
+//  1. DO NOT DELETE ANY COMMENT OR ANY CODE!!!
+//  2. You will only need to fill the blocks with comment "COMPLETE THIS BLOCK".
+//  3. Modify the file name to "LinkedListEven.java" before compiling and submitting it.
+//  4. DON’T FORGET TO INPUT YOUR NAME AND EAGLE ID AT THE TOP! OTHERWISE, YOU GET NO 
+//      POINTS!!
+// ===============================================
+
+public class LinkedListEven {
+
+    Node head; // head reference of the linked list, 
+    // TAIL CANNOT BE ADDED AND WILL NOT BE NEEDED
+    
+    // Static so main() can access it
+    static class Node {
+
+        int data;
+        Node next;
+
+        // Constructor, only stores Integers
+        Node(int d)
+        {
+            data = d;
+            next = null;
+        }
+    }
+
+    // Method to insert a new node, works as addLast method
+    public static LinkedListEven insert(LinkedListEven list, int data)
+    {
+        // Create a new node first with given data
+        Node new_node = new Node(data);
+        new_node.next = null;
+
+        // Make the new node as head if the list was empty
+        if (list.head == null) {
+            list.head = new_node;
+        }
+        else {
+            // Else insert the new_node at last
+            Node last = list.head;
+            while (last.next != null) {
+                last = last.next;
+            }
+
+            last.next = new_node;
+        }
+        
+        return list;
+    }
+
+    // Method to traverse/print the list
+    public static void printList(LinkedListEven list)
+    {
+        Node e = list.head;
+        while(e != null) {
+        	System.out.print(e.data + " ");
+        	e = e.next;
+        }
+    //COMPLETE THIS BLOCK
+ 
+        System.out.println();
+        System.out.println();
+    }
+
+
+    // Method to delete a node in the LinkedList by KEY/ELEMENT
+    public static LinkedListEven deleteByKey(LinkedListEven list, int key)
+    //COMPLETE THIS BLOCK
+    {
+    	Node keyElement = new Node(key); //= list.head;	//First test if the key is same as head
+    	Node prevCurrElement = list.head;
+    	Node currElement = list.head.next;
+        //
+        // CASE 1:
+        // If head node itself holds the key to be deleted
+
+    		// Changed head
+            // Display the message
+            // Return the updated List
+    	if(list.head == null) {	//If the head is null, the list is empty		//Case 1
+    		return null;
+    	}else if(keyElement.data == list.head.data){
+    		System.out.println(key + " found and deleted");
+    		keyElement = list.head.next;
+    		list.head = keyElement;
+    	}else {																	//Case 2
+        	while(currElement != null) {
+        		
+        		if(keyElement.data == currElement.data) {
+        			System.out.println(key + " Found and Deleted");
+        			prevCurrElement.next = currElement.next;
+        			keyElement = prevCurrElement;
+        			
+        			break;
+        		}else if(prevCurrElement == null) {
+    				System.out.println(key + " is not within the list!!");
+    			}
+        		
+        		currElement = currElement.next;
+        		prevCurrElement = prevCurrElement.next;
+        	}
+    	}
+        //
+        // CASE 2:
+        // If the key is somewhere other than at head
+
+	        // Search for the key to be deleted,
+	        // keep track of the previous node
+	        // as it is needed
+
+    		// If the key was present, it should be at the current iteration of a Node
+            // Display the message
+
+    	//Matteo: First, create a while loop that checks each element in the List (will be done O(n) times since it has to check each node),
+    	//			if that keyElement does not match with the currentElement, change the currentElement to the next element until it is true
+
+        // CASE 3: The key is not present
+        //
+
+        	// If key was not present in linked list
+        	// then you have reached null node
+            // Display the message
+        	// return the List
+    	
+    	
+    	return list;
+ 
+    }
+
+
+
+    public static void main(String[] args)
+    {
+
+        LinkedListEven list = new LinkedListEven();
+
+        // Insert the values
+        list = insert(list, 1);
+        list = insert(list, 2);
+        list = insert(list, 3);
+        list = insert(list, 4);
+        list = insert(list, 5);
+        list = insert(list, 6);
+        list = insert(list, 7);
+        list = insert(list, 8);
+
+        // Print
+        printList(list);
+
+        // Delete node
+        deleteByKey(list, 1);
+        printList(list); // Print to verify
+
+        deleteByKey(list, 4);
+        printList(list); // Print to verify
+
+        deleteByKey(list, 10);
+        printList(list); // Print to verify
+
+    }
+
+}
