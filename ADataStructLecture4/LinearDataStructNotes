@@ -5,7 +5,7 @@ public class LinearDataStructNotes {
 	/*
 	 * Arrays
 	 * ArrayLists
-	 * Linked Lists						**Answer will be Linked Lists (Important)
+	 * Linked Lists						**Answer will be Linked Lists (Important******)
 	 * 		* Single Linked Lists
 	 * 		* Double Linked Lists
 	 * Stacks
@@ -52,6 +52,7 @@ public class LinearDataStructNotes {
 	 * 		-Static data structure
 	 * 		-Insertion/deletion in an array is time consuming:
 	 * 			It will be O(n) (worst-case time complexity; and n represents array size)
+	 * 			Worst time happens when deleting the first element
 	 * 
 	 * 			Insert an entry e in index 3	**Will shift the elements to the right
 	 * 		[a]	[b]	[c]	[d]	[f]	[g]	[h]	[]	[]	[]
@@ -120,7 +121,7 @@ public class LinearDataStructNotes {
 	 * 			[0]		[0]		[]
 	 * 			[1]		[c]		[Extend array]				Replace the array k = ceil(n/c) times
 	 * 			[2]		[c]		[]							The total time T(n) is proportional to:
-	 * 			[...]	[...]	[]						n + c + 2c + 3c + 4c +...+kc = n + ck(k+1)/2
+	 * 			[...]	[...]	[]						n + c + 2c + 3c + 4c +...+ kc = n + ck(k+1)/2
 	 * 			[c]		[c]		[]						
 	 * 			[c + 1]	[2c]	[Extend array]			Since c is constant
 	 *			[...]	[...]	[]							T(n) is O(n + k^2), i.e, O(n^2)
@@ -149,25 +150,39 @@ public class LinearDataStructNotes {
 	 * 			-Double strategy is good for many elements 	 * 
 	 */
 	
-	/*
-	 * 	Linked Lists
+	/*Linked Lists (Singly and Doubly)*/
+	
+	/**
+	 * 	Linked Lists	(Very Important)
 	 * 		* A concrete data structure  consisting of a sequence of nodes		**Instead of treating each point in the array as an
 	 * 																			element; treat each as a node
 	 * 		* Each node stores
 	 * 			- Element (each element stores an address)
 	 * 			- link to the next/previous node			***Can change links depending on where the new node will be put
+	 * 
+	 * 		* Notation of each Node:	for singly and doubly linked lists
+	 * 				[Value][Address]---->					*Singly
+	 * 
+	 * 				<----[Address][Value][Address]---->		*Doubly
+	 * 			
+	 * 			***NOTE: Each node contains a value of the element and an address pointing to the next node
+	 * 						* The address is also called a pointer in C languages
+	 * 						* The final node will have a null address
 	 */
 	 /** 
-	 * 	 head/first				tail/last
+	 * 	 head/first/root		tail/last
 	 * 		  |						|
-	 * 		[e_1][*]---->[e_2][]----->[e_3][*]----->[X]							Singly Linked list (Move only one direction)
+	 * 		[e_1][adr_e2]---->[e_2][adr_e3]----->[e_3][null]----->[X]							Singly Linked list (Move only one direction)
 	 * 
-	 * 	 header															trailer
+	 * 
+	 * 	 header(root)													trailer
 	 * 		|															  |
 	 * 		[X]<---->[*][e_1][*]<---->[*][e_2][*]<---->[*][e_3][*]<----->[X]	Doubly linked list (Move in both directions)
 	 * 
 	 * 			Notation
-	 * 					([*]------>)	Connectors
+	 * 					([data][*]------>)	Connectors
+	 * 						|	|
+	 * 					 data	pointer(address)
 	 * 
 	 * 		NOTE:
 	 * 			*In a singly linked list, a head is the first node
@@ -176,20 +191,34 @@ public class LinearDataStructNotes {
 	 * 
 	 * 				put:	[e_A] between [e_1] and [e_2]
 	 * 
-	 * 					[e_1][*]---->[e_2][]----->[e_3][*]----->[X]
+	 * 					[e_1][*]---->[e_2][*]----->[e_3][*]----->[X]
 	 * 								  |
 	 * 							[e_A][*]
+	 * 				
+	 * 				***For [e_A][addr], the addr will be the address for e_2, when that is established, e_1 will
+	 * 				establish a link to e_A (pointer/address of e_A) and then discard pointer to e_2
+	 * 				
+	 * 				will be:
+	 * 					[e_1][*]---->[e_A][*]---->[e_2][*]----->[e_3][*]----->[X]
+	 * 
+	 * 			* Remove [e_2], have [e_A] attach to [e_3], and discard [e_2]
+	 * 
+	 * 					[e_1][*]---->[e_A][*]---->[e_3][*]----->[X]			
+	 * 										
+	 * 										[e_2][*]----->
 	 * 
 	 * 			*In a doubly linked list, both header and trailer are place-holders
 	 * 				-The header is null node (contains no element and no address) 
 	 * 					that points to the first element
 	 * 				-The trailer is a null node
+	 */
+	
+	/* 		Singly Linked List: Node Class
 	 * 
-	 * 		Node Class
-	 * 			private static class Node<E>{		//E is the Data Type
-	 * 				private E element;
-	 * 				private Node<E> next;
-	 * 				//private Node<E> prev	//commented out because
+	 * 			private static class Node<E>{		// E is the Data Type (generic data type)
+	 * 				private E element;				// element is the generic type that we want to return
+	 * 				private Node<E> next;			// Must
+	 * 				//private Node<E> prev			// commented out because previous will not be obtained for singly
 	 * 				public Node(E e, Node<E> n){
 	 * 					element = e;
 	 * 					next = n;
@@ -201,27 +230,50 @@ public class LinearDataStructNotes {
 	 * 				public void setNext(Node<E> n) { next = n;}
 	 * 				//public void setPrev(Node<E> p) { prev = p;}
 	 * 			}
-	 * 
-	 * 		Singly linked list: ADT					(Abstract Data Type)
+	 */
+	
+	/*		Doubly Linked List: Node Class
+	 * 			
+	 * 			private static class Node<E>{		// E is the Data Type (generic data type)
+	 * 				private E element;				// element is the generic type that we want to return
+	 * 				private Node<E> next;
+	 * 				private Node<E> prev			// previous will be obtained for doubly
+	 * 				public Node(E e, Node<E> p, Node<E> n){
+	 * 					element = e;
+	 * 					prev = p;
+	 * 					next = n;
+	 * 				}
+	 * 				public E getElement() { return element;}
+	 * 				public Node<E> getNext() { return next;}
+	 * 				public Node<E> getPrev() { return prev;}
+	 * 				public void setNext(Node<E> n) { next = n;}
+	 * 				public void setPrev(Node<E> p) { prev = p;}
+	 * 			}
+	 */
+	
+	/** 	Singly linked list: ADT					(Abstract Data Type)
 	 * 			private Node<E> head = null;
-	 * 			private Node<E> head = null;
+	 * 			private Node<E> tail = null;
 	 * 			//	Number of nodes in the list
 	 * 			private int size = 0;
 	 * 
 	 * 			public int size()
 	 * 			public boolean isEmpty()
-	 * 			public E first()
+	 * 			public E first()				//Since head and tail are of Node<E> type, for first(), return head.getElement()
 	 * 			public E last()
 	 * 			public void addFirst(E e)
 	 * 			public void addLast(E e)
-	 * 			public E removeFirst()
+	 * 			public E removeFirst()			//NOTE: Cannot removeLast() because it will be O(n) due to
+	 * 											//Missing the addBetween() method for inserting element between
 	 *  
 	 * 
+	 *		//NOTE: addFirst() adds a new node in the first element, so the head will be the last element that you pushed
 	 * 			Singly Linked Lists: addFirst(E e)
-	 * 
-	 * 					 head						tail
-	 * 					  |							  |
-	 * 					[e_1][*]---->[e_2][]----->[e_3][*]----->[X]
+	 * 				NOTE: in reversed order, use addFirst()
+	 * 																//If there's no tail, then start from the head
+	 * 		head									tail			//tail is reference that is assigned to something
+	 * 		 |							  			|
+	 * 		[e_0][*]---->[e_1][*]---->[e_2][]----->[e_3][*]----->[X]
 	 * 			public void addFirst(E e) {
 	 * 				head = new Node<>(e , head );			//**Assign head to head, because it will be the next node
 	 * 				if(size == 0)
@@ -231,9 +283,9 @@ public class LinearDataStructNotes {
 	 * 
 	 * 			Singly Linked Lists: removeFirst()
 	 * 
-	 * 								head		tail
-	 * 					  			  |			  | 
-	 * 					[e_1][]		[e_2][]----->[e_3][*]----->[X]
+	 * 						head					tail
+	 * 						|			  			| 
+	 * 		[e_0][*]	[e_1][]---->[e_2][]----->[e_3][*]----->[X]
 	 * 			public void removeFirst() {
 	 * 				if(isEmpty()) return null;
 	 * 				E answer = head.getElement();
@@ -244,20 +296,41 @@ public class LinearDataStructNotes {
 	 * 				return answer;
 	 * 			} 
 	 * 
+	 * 		//addLast() pushes nodes to the last element, so it builds up, so the head will be the first element that you pushed
+	 * 				NOTE: in forward order, use addLast()
 	 * 			Singly Linked Lists: addLast()
 	 * 					head					 tail---->[e_4][*]
-	 * 					  |							|	  /		\
-	 * 					[e_1][*]---->[e_2][]----->[e_3][*]----->[X]			//NOTE: e_3 goes to e_4
-	 * 																		//	e_4 goes to trailer ([X])
+	 * 					  |								   ^	\
+	 * 					  v								  /		 v
+	 * 					[e_1][*]---->[e_2][]----->[e_3][*]		[X]			//NOTE: e_3 points to e_4
+	 * 																		//	e_4 points to trailer ([X])
+	 * 											//e_3 will point to the last node**
+	 * 
+	 * 				//NOTE: Do the tail assignment first: the tail for e_3 no longer exists (diminished), so the connection
+	 * 							from e_3 to trailer is diminished
+	 * 						The tail is now pointing to e_4
+	 * 				
+	 * 				//NOTE: In order to find an element (search), must traverse from root (head) towards that 
+	 * 					element (node); which is done by linear search (loop from i = 0 to n)
+	 * 						- Therefore, finding a node is done in O(n) operations
+	 * 						
+	 * 						* Update e_2, start from head and keep going until reach e_2
+	 * 						Still have reference to e_2, but cannot go to e_2 because it's a singly linked list
+	 * 						1) connect e_4 to trailer
+	 * 						2) connect e_3 to e_4			**STEPS 2 and 3 are very important
+	 * 						3) assign tail to e_4
+	 * 
+	 * 			**Focus on Time Complexity, adding/removing nodes in linked lists will be done in O(1) time 
+	 * 
 	 * 			public void addLast(E e) {
 	 * 				Node<E> newest = new Node<>(e, null)
 	 * 				if(isEmpty())	// previously empty list
 	 * 					head = newest;
 	 * 				else			// new node after existing tail
 	 * 					tail.setNext(newest);
-	 * 				tail = newest;		// new node becomes tail
+	 * 				tail = newest;		// new node becomes the tail
 	 * 				size++ 
-	 * 			} 
+	 * 			}
 	 * 
 	 * 			Singly Linked Lists: removeLast()
 	 * 					head					 tail		[e_4][*]
@@ -265,11 +338,15 @@ public class LinearDataStructNotes {
 	 * 					[e_1][*]---->[e_2][]----->[e_3][*]----->[X]
 	 * 																		
 	 * 			public void removeLast(E e) {} 	//**There is no constant time way to update tail to point in previous node
+	 * 		
+	 * 			//Won't be O(c) but will be O(n)
+	 * 		
 	 */
 	
+	//NOTE: the header in doubly linked list will have null address (same as tail)
 	/**	Linked Lists: Doubly Linked Lists (ADT)
-	 * 		private Node<E> head = null;
-	 * 		private Node<E> tail = null;
+	 * 		private Node<E> header = null;	//Has to be = new Node(null, null, null)	//Doubly has to have element, prevAddress, nextAddress
+	 * 		private Node<E> trailer = null;	//Has to be = new Node(null, header, null)
 	 * 		private int size = 0;
 	 * 		
 	 * 		public int size()
@@ -281,12 +358,195 @@ public class LinearDataStructNotes {
 	 *  	public E removeFirst()
 	 * 		public E removeLast()
 	 *  	public void addBetween(E e, Node<E> predecessor, Node<E> successor)
-	 * 		public E removed(Node<E> node)
+	 * 		public E remove(Node<E> node)
+	 *
+	 *	
+	 *	Doubly Linked List: addBetween() and remove()
+	 *			*Easier in Doubly than Singly linked lists because of bi-directional advantage
+	 *	header															trailer
+	 * 		|															  |
+	 * 		[X]<---->[*][e_1][*]<---_->[*][e_2][*]<---->[*][e_3][*]<----->[X]
+	 *
+	 * 										   
+	 * 										   [*][	e_0	][*]	
+	 *
+	 *			**NOTE: Once e_2 points to e_0, the link from e_2 to e_3 is lost!!
 	 *
 	 * 	header															trailer
 	 * 		|															  |
-	 * 		[X]<---->[*][e_1][*]<---->[*][e_2][*]<---->[*][e_3][*]<----->[X]
+	 * 		[X]<---->[*][e_1][*]<---_->[*][e_2][*]<---->[*][e_3][*]<----->[X]
+	 * 										   ^ |		^ |
+	 * 										   | |		| |
+	 * 										   | v		| v
+	 * 										   [*][	e_0	][*]
 	 * 
+	 * 			**NOTE: remove link from e_0 to e_3 (or from e_0 to e_2) first, and then have either e_2 connect to e_3 or
+	 * 						e_3 connect to e_2 until bi-directional link is established
+	 * 
+	 * 	header															trailer
+	 * 		|															  |
+	 * 		[X]<---->[*][e_1][*]<---_->[*][e_2][*]<---->[*][e_3][*]<----->[X]
+	 *
+	 * 										   
+	 * 										   [*][	e_0	][*]
+	 * 
+	 * 			// Which point to remove is from e_0 to the next or previous node, so you could either remove
+	 * 		the point from e_0 to e_3 or the point from e_0 to e_2 because of doubly directions
+	 * 
+	 * 			// NOTE: Order Matters for adding nodes, but doesn't matter when removing nodes
+	 * 
+	 * 		Benefits of Linked Lists (pro)
+	 * 			* Insert/remove doesn't shift the elements in the list
+	 * 				- Done in O(1) time
+	 * 
+	 * 		Limitations of Linked Lists
+	 * 			* Not contiguous (like arrays), so cannot store contiguously
+	 * 			* Not sortable
+	 * 			* Must traverse list to find the element (node) in the list
+	 * 				- Done in O(n) time
+	 */
+	
+	/*Stacks and Queues*/
+	
+	/**	Stack (LIFO): Last In First Out
+	 * 		* Idea is arrays: could use array, ArrayList, or linked lists ()primarily use linked lists
+	 * 
+	 * 			push--------v			pop
+	 * 					top	[]----------^
+	 * 						[]
+	 * 						[]
+	 *  					[]
+	 *  					[]
+	 *  			bottom	[]
+	 * 
+	 * 		* Stack ADT stores arbitrary objects
+	 * 		* Insertions and deletions follow the first-in first-out scheme (push-pop)
+	 */ 
+	
+	 /* 	public interface Stack<E>{
+	 * 			int size();
+	 * 			boolean isEmpty();
+	 * 			void push(E e);	//Adds a new node in the stack (item)
+	 * 			E top(); //returns top most element value without removing it (doesn't decrease the size by anything)
+	 * 			e pop(); //Returns value of top most element
+	 *		}
+	 * 			//NOTE:	java.util.Stack provides push and pop, but differs in other respects
+	 */	
+	/** 	Array-Based Stack: ArrayStack.java
+	 * 
+	 * 		public class ArrayStack<E> implements Stack<E>{
+	 * 			private E[] data;
+	 * 			private int top = -1;	//AKA t
+	 * 			//Index of top element in stack
+	 * 			
+	 * 			public int size()
+	 * 			public boolean isEmpty()
+	 * 			public void push(E e)				//Pushes the front-most element (Last-In First-Out)
+	 * 			public E pop()
+ 	 * 		}
+ 	 * 
+ 	 * 		Array Stack Representation:
+ 	 * 			(rear)									(front)
+	 * 				0 	1	2	3	4	5	6	7	8	9
+	 * 				[]	[]	[]	[]	[]	[]	[]	[]	[]	[]
+	 * 					bottom....top	-->
+	 * 
+	 * 		// Performance: each operation runs in time O(1)
+	 * 		// Limitations: Fixed size	
+	 */
+	
+	/**	Queues (FIFO): First In First Out
+	 * 								dequeue
+	 * 			top/front	[]----------^
+	 * 						[]
+	 * 						[]
+	 *  					[]
+	 *  					[]
+	 *  		bottom/rear	[]
+	 * 						^
+	 * 						|
+	 * 				enqueue
+	 * 
+	 * 				Enqueue enters element in first (bottom to top)
+	 * 				Dequeue returns element back the last element (top to bottom)
+	 * 
+	 * 	* The Queue ADT stores arbitrary objects
+	 * 	* Insertions and deletions follow first-in first-out scheme (FIFO)
+	 */ 
+	
+	/* 
+	 * 	Queue interface
+	 * 
+	 * 			public interface Queue<E>{
+	 * 				int size();
+	 * 				boolean isEmpty();
+	 * 				void enqueue(E e);			//Inserts a new element
+	 * 				E first();
+	 * 				E dequeue();				//(If invoked) Pushes the first element in the Queue; first-in first-out manner
+	 * 			}
+	 */ 
+	/** 	Array-Based Queue
+	 * 			public class ArrayQueue<E> implements Queue<E>{
+	 * 				/**Generic array used for storage of queue elements/
+	 * 				private E[] data;
+	 * 
+	 * 				/**Index of the top element of the queue in the array/
+	 * 				private int first = 0;		//AKA f
+	 * 
+	 * 				/**Current number of elements in the queue/
+	 * 				private int size = 0;		//AKA sz
+	 * 				
+	 * 				public int size()
+	 * 				public boolean isEmpty()
+	 * 				public void enqueue(E e) throws IllegalStateException
+	 * 				public E first()
+	 * 				public E dequeue()					//Pushes the first-most element out (First-In First-Out)
+	 * 	
+	 * 			}
+	 * 
+	 * 		Array Queue Representation:
+	 * 			(front)									(rear)
+	 * 				0 	1	2	3	4	5	6	7	8	9
+	 * 				[]	[]	[]	[]	[]	[]	[]	[]	[]	[]
+	 * 
+	 * 		Array-Based Queue: Mod Operation (modulus % will obtain the remainder of an operation)
+	 * 
+	 * 							(f)									(r)
+	 * 							0 	1	2	3	4	5	6	7	8	9
+	 * 							[]	[]	[]	[]	[]	[]	[]	[]	[]	[]
+	 * 		
+	 * 		/**Enqueue for ***inserting new elements at the top of the Queue
+	 * 			Algorithm enqueue(o):			//Object o is of generic type
+	 * 				if size() = N - 1 then:
+	 * 					throw new IllegalStateException()
+	 * 				else:
+	 * 					r = (f + sz) mod N		//Change the rear to (front + size) % N
+	 * 					Q[r] = o				//The rear (last element) will be the inserted element o (Q is the generic array)
+	 * 					sz = sz + 1;			//Increase the size by one
+	 * 
+	 * 		
+	 * 		/**Dequeue for ***deleting first element of the Eueue
+	 * 			Algorithm dequeue():
+	 * 				if isEmpty() then:
+	 * 					return null
+	 * 				else:
+	 * 					o = Q[f]				//The object will be at the front of the generic array (at the start)
+	 * 					f = (f + 1) mod N		//Change the front to (f + 1) % N  (N is size of the Queue)
+	 * 					sz = sz - 1;			//Decrease size by one
+	 * 					return o;				//Return the removed first object
+	 * 				
+	 * 			//Performance For both Enqueue and Dequeue: Runs in O(1) time
+	 * 			//Limitations for Queues: Fixed Size
+	 */
+	
+	/*
+	 * 		Stacks and Queues methods:
+	 * 
+	 * 		push()		==		dequeue()		Pulls element out the list
+	 * 		pop()		==		enqueue()		Puts element in the list
+	 * 
+	 * 		* Stack is LIFO, so pop() will take out last element
+	 * 		* Queue is FIFO, so dequeue will take out first element
 	 */
 	
 	public static void main(String[] args) {
