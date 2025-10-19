@@ -68,7 +68,9 @@ public class LinearDataStructNotes {
 	 * 		[a]	[b]	[c]	[d]	[f]	[g]	[h]	[null]	[] []
 	 */
 	
-	/*	ArrayLists		(Object-Oriented programming)			NOTE: Use ArrayLists when size needs to be dynamic**
+	/*ArrayLists	*/
+	
+	/**	ArrayLists		(Object-Oriented programming)			NOTE: Use ArrayLists when size needs to be dynamic**
 	 * 		*Dynamic sized arrays in Java that implements List interface
 	 * 			-Not static sized (static size is arrays)
 	 * 	ArrayList {
@@ -146,8 +148,9 @@ public class LinearDataStructNotes {
 	 * 
 	 * 
 	 * 	* Whichever strategy is better, depends entirely on the size of the Array!
-	 * 			-Sometimes Increment strategy is better if there are only a few elements to add
-	 * 			-Double strategy is good for many elements 	 * 
+	 * 			-Sometimes Increment strategy is better if there are only a "few" elements to add
+	 * 			-Double strategy is good for "many" elements 
+	 * 				* Double also better if there are new elements coming in at a faster rate
 	 */
 	
 	/*Linked Lists (Singly and Doubly)*/
@@ -275,13 +278,25 @@ public class LinearDataStructNotes {
 	 * 		 |							  			|
 	 * 		[e_0][*]---->[e_1][*]---->[e_2][]----->[e_3][*]----->[X]
 	 * 			public void addFirst(E e) {
-	 * 				head = new Node<>(e , head );			//**Assign head to head, because it will be the next node
-	 * 				if(size == 0)
-	 * 					tail = head;						//**When there is no node in the next node, the next node will be head***
-	 * 				size++									//		When there is no node in prev node, prev node will be head
+	 * 				head = new Node<>(e , head );		//**Assign head Node to head, because it will need an address: head node needs an element
+	 * 				if(size == 0)						
+	 * 					tail = head;					//**When there is no node in the next node, the next node will be head***
+	 * 				size++;								//		When there is no node in prev node, prev node will be head
 	 * 			} 
 	 * 
-	 * 			Singly Linked Lists: removeFirst()
+	 */ 
+	/*			NOTE:
+	 * 	//Could also do it as this (easier to remember for addLast() method):
+	 * 				public void addFirst(E e) {						//Add to the head, replace head node
+	 * 					Node<E> newest = new Node<>(e , head );	
+	 * 					if(size == 0)								//If empty, then tail will have same value as head node
+	 * 						tail = newest;					
+	 * 					head = newest;
+	 * 					size++;
+	 * 					} 
+	 */
+	
+	/** 			Singly Linked Lists: removeFirst()
 	 * 
 	 * 						head					tail
 	 * 						|			  			| 
@@ -322,13 +337,14 @@ public class LinearDataStructNotes {
 	 * 
 	 * 			**Focus on Time Complexity, adding/removing nodes in linked lists will be done in O(1) time 
 	 * 
+	 * 		//NOTE: When the list is first empty, the tail will be set to newest regardless
 	 * 			public void addLast(E e) {
 	 * 				Node<E> newest = new Node<>(e, null)
-	 * 				if(isEmpty())	// previously empty list
-	 * 					head = newest;
-	 * 				else			// new node after existing tail
-	 * 					tail.setNext(newest);
-	 * 				tail = newest;		// new node becomes the tail
+	 * 				if(isEmpty())			// previously empty list
+	 * 					head = newest;		//**head will be the newest(newest will act as the tail)
+	 * 				else					// new node after existing tail
+	 * 					tail.setNext(newest);		//tail will have the null address and element
+	 * 				tail = newest;			// tail will become the new node
 	 * 				size++ 
 	 * 			}
 	 * 
@@ -436,7 +452,7 @@ public class LinearDataStructNotes {
 	 * 
 	 * 		public class ArrayStack<E> implements Stack<E>{
 	 * 			private E[] data;
-	 * 			private int top = -1;	//AKA t
+	 * 			private int top = -1;				//AKA t
 	 * 			//Index of top element in stack
 	 * 			
 	 * 			public int size()
@@ -491,7 +507,7 @@ public class LinearDataStructNotes {
 	 * 				private E[] data;
 	 * 
 	 * 				/**Index of the top element of the queue in the array/
-	 * 				private int first = 0;		//AKA f
+	 * 				private int front = 0;		//AKA f 
 	 * 
 	 * 				/**Current number of elements in the queue/
 	 * 				private int size = 0;		//AKA sz
