@@ -1,3 +1,4 @@
+import LinkedListTest.Node;
 
 public class LinearDataStructNotes {
 	/**NOTE: If asked 'what type of data structure will you use?' in an interview; NEVER say Array, say Linked Lists!!!*/
@@ -411,6 +412,31 @@ public class LinearDataStructNotes {
 	 * 
 	 * 			// NOTE: Order Matters for adding nodes, but doesn't matter when removing nodes
 	 * 
+	 * 		Doubly Linked List: AddBetween()
+	 * 
+	 * 			//Old: Does not work with addFirst() method b/c it does not account for the linked list being empty
+	 * 				public void addBetween(E element, Node<E> predecessor, Node<E> successor){
+	 * 					Node<E> newest  = new Node<>(e, predecessor, successor);
+						predecessor.setNext(newest);
+						successor.setPrev(newest);
+						size++;
+					}
+					
+	 * 			//New
+	 * 			AddBetween(E element, Node<E> predecessor, Node<E> successor){
+	 * 				Node<E> newest = new Node<>(element, predecessor, successor)
+	 * 				if(isEmpty()){
+	 * 					head.setNext(newest);			// head will be null, but the head.getNext() will have a value
+	 * 					tail.setPrev(newest)			// tail will be null, but the tail.getPrev() will have a value
+	 * 				}else{
+	 * 					successor.setPrev(newest);
+	 * 					predecessor.setNext(newest);
+	 * 				}
+	 * 				size++;
+	 * 			}
+	 */
+	
+	/* 
 	 * 		Benefits of Linked Lists (pro)
 	 * 			* Insert/remove doesn't shift the elements in the list
 	 * 				- Done in O(1) time
