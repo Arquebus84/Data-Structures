@@ -1,4 +1,4 @@
-import LinkedListTest.Node;
+//import LinkedListTest.Node;
 
 public class LinearDataStructNotes {
 	/**NOTE: If asked 'what type of data structure will you use?' in an interview; NEVER say Array, say Linked Lists!!!*/
@@ -36,7 +36,7 @@ public class LinearDataStructNotes {
 	 * 	indexing into a component takes O(1) time
 	 * 
 	 * Java arrays are homogeneous
-	 * 		-All components are of same type (object or primitive)
+	 * 		-All components are of same type (object or primitive or generic)
 	 * 		-Array of object type can contain objects of any respective subtype
 	 * An array itself is an object
 	 * 		-Is allocated dynamically by means of new
@@ -62,7 +62,7 @@ public class LinearDataStructNotes {
 	 * 			After:							**Shifting will have Time Complexity of O(n)
 	 * 		[a]	[b]	[e]	[c]	[d]	[f]	[g]	[h]	[]	[]
 	 * 
-	 * 			Deleting element at index 3 		**Will sift elements to the left (can go the other way around), 
+	 * 			Deleting element at index 3 		**Will shift elements to the left (can go the other way around), 
 	 * 		[a]	[b]	[e]	[c]	[d]	[f]	[g]	[h]	[]	[]		and put a null value on index 7 (nullify index 7), otherwise, you will
 	 * 													get a copied index
 	 * 			After
@@ -414,7 +414,7 @@ public class LinearDataStructNotes {
 	 * 
 	 * 		Doubly Linked List: AddBetween()
 	 * 
-	 * 			//Old: Does not work with addFirst() method b/c it does not account for the linked list being empty
+	 * 		//Old: Does not work with addFirst() method b/c it does not account for the linked list being empty
 	 * 				public void addBetween(E element, Node<E> predecessor, Node<E> successor){
 	 * 					Node<E> newest  = new Node<>(e, predecessor, successor);
 						predecessor.setNext(newest);
@@ -422,14 +422,14 @@ public class LinearDataStructNotes {
 						size++;
 					}
 					
-	 * 			//New
+	 * 		//New
 	 * 			AddBetween(E element, Node<E> predecessor, Node<E> successor){
 	 * 				Node<E> newest = new Node<>(element, predecessor, successor)
 	 * 				if(isEmpty()){
 	 * 					head.setNext(newest);			// head will be null, but the head.getNext() will have a value
 	 * 					tail.setPrev(newest)			// tail will be null, but the tail.getPrev() will have a value
 	 * 				}else{
-	 * 					successor.setPrev(newest);
+	 * 					successor.setPrev(newest);		// After head and tail are defined, set each of their next/previous parts to the newest
 	 * 					predecessor.setNext(newest);
 	 * 				}
 	 * 				size++;
@@ -468,9 +468,9 @@ public class LinearDataStructNotes {
 	 /* 	public interface Stack<E>{
 	 * 			int size();
 	 * 			boolean isEmpty();
-	 * 			void push(E e);	//Adds a new node in the stack (item)
-	 * 			E top(); //returns top most element value without removing it (doesn't decrease the size by anything)
-	 * 			e pop(); //Returns value of top most element
+	 * 			void push(E e);		//Adds a new node in the stack (item)
+	 * 			E top(); 			//returns top most element value without removing it (doesn't decrease the size by anything)
+	 * 			e pop(); 			//Returns value of top most element
 	 *		}
 	 * 			//NOTE:	java.util.Stack provides push and pop, but differs in other respects
 	 */	
